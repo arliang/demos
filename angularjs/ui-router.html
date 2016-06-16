@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>angular ui router</title>
+  <script src="http://cdn.bootcss.com/angular.js/1.4.6/angular.js"></script>
+  <script src="http://cdn.bootcss.com/angular-ui-router/1.0.0-alpha.5/angular-ui-router.js"></script>
+</head>
+<body>
+  <div ng-controller="DemoController">
+    <div ui-view></div>
+  </div>
+  <script>
+    
+    angular.module('app', ['ui.router'])
+    .config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider){
+      $stateProvider.state('start', {
+        url: '/',
+        template: '<h1>root</h1>'
+      });
+      $stateProvider.state('home', {
+        template: '<h1>Hello {{name}}</h1>'
+      });
+    }])
+    .controller('DemoController', ['$scope', function($scope){
+      $scope.name = "Ryou";
+    }]);
+    angular.bootstrap(document, ['app']);
+    
+  </script>
+</body>
+</html>
