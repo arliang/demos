@@ -20,10 +20,25 @@
         template: '<h1>root</h1>'
       });
       $stateProvider.state('home', {
-        template: '<h1>Hello {{name}}</h1>'
+        template: '<h1>Hello {{name}}</h1>',
+        resolve: {
+          // 当结果不是promise时候立即返回
+          person: function(){
+            return {
+              name: 'Arliang',
+              email: 'arliang725@163.com'
+            }
+          },
+          currentDetails: ['$http', function($http) {
+            return $http.get('https://api.github.com/repos/arliang/demos')
+          }]
+        },
+        controller: ['$scope', 'person', function($scope, person){
+          $scope.person = person;
+        }]
       });
     }])
-    .controller('DemoController', ['$scope', function($scope){
+    .controller('DemoController', ['$scope', 'person', 'currentDetails', function($scope, person, currentDetails){
       $scope.name = "Ryou";
     }]);
     angular.bootstrap(document, ['app']);
