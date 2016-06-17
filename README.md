@@ -1,3 +1,3 @@
 #Demos
 
-##[angular ui router](http://arliang.github.io/angularjs/ui-router.html)
+##[angular ui router](http://arliang.github.io/demos/angularjs/ui-router.html)
