@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>a huge text on texterea</title>
+</head>
+<body>
+<textarea rows="20" cols="120"></textarea>
+<p>time spent:<span></span></p>
+Math Expression:<input value="102400*8"><button>start</button>
+<!-- https://bugs.chromium.org/p/chromium/issues/entry# -->
+<!--
+Chrome Version       : °æ±¾ 51.0.2704.84 m
+URLs (if applicable) : https://arliang.github.io/demos/others/huge_value_for_textarea.html
+Other browsers tested:
+  Add OK or FAIL, along with the version, after other browsers where you
+have tested this issue:
+     Safari: 5.1.7(7534.57.2) windows 334ms
+    Firefox: 46.0.1 about 548ms
+         IE: Edge 348ms
+
+What steps will reproduce the problem?
+(1) enter an expression on 
+(2) click start button
+(3) wheel up/down on textarea
+
+What is the expected result?
+Not take too long for response.
+Sometimes crash.
+
+What happens instead?
+It takes a long time on chrome in this case.
+
+Please provide any additional information below. Attach a screenshot if
+possible.
+-->
+
+<!--
+my tests:
+102400*2
+Chrome 51.0.2704.84 m about 5846ms
+Firefox 46.0.1 about 209ms
+================================
+102400*8
+Safari 5.1.7(7534.57.2) windows 334ms
+Firefox 46.0.1 about 548ms
+IE Edge 348ms
+Chrome 51.0.2704.84 m  more than 1 minute
+================================
+102400*20
+Firefox 46.0.1 about 1387ms
+-->
+<script>
+var d, t
+function $(selector){
+    return document.querySelector(selector)
+}
+d = new Date
+t = $('textarea')
+
+$('input').onchange = function(){
+    $('button').disabled = false
+}
+
+$('button').onclick = function(){
+    var length = eval($('input').value)
+    this.disabled = true
+    d = new Date
+    t.value = new Array(length + 1).join('a')
+}
+
+t.onscroll = function(){
+    $('span').innerHTML = new Date - d + 'ms'
+    t.onscroll = null
+}
+</script>
+</body>
+</html>
